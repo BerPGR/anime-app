@@ -1,19 +1,33 @@
 import React from 'react'
-import { Dimensions, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { BlurView } from 'expo-blur'
 
 import { Ionicons, FontAwesome5, Feather } from '@expo/vector-icons'
 import colors from '../colors/colors'
 import newAnime from '../images/chainsaw.jpeg'
 import newAnimeLogo from '../images/chainsawManTitle.png'
+import newAnimes from '../data/newAnimes'
 
 const height = Dimensions.get("window").height
 
 const Home = ({navigation}) => {
+
+    const renderNewAnimes = ({item}) => {
+        return (
+            <TouchableOpacity style={styles.newAnimesItemWrapper}>
+                <Image source={item.image} style={styles.newAnimeItemImage}/>
+                <View style={styles.newAnimeItemImageInfo}>
+                    <Text style={styles.newAnimeItemTitle}>{item.title}</Text>
+                    <Text style={styles.newAnimeItemType}>{item.type}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
     return (
     <View style={styles.container}>
         {/* Header Section */}
-        <BlurView style={styles.headerWrapper} tint="light" intensity={30}>
+        <BlurView style={styles.headerWrapper} tint="dark" intensity={30}>
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <Ionicons name='person' size={28} color={colors.white}/>
             </TouchableOpacity>
@@ -41,6 +55,17 @@ const Home = ({navigation}) => {
                 </View>
             </View>
 
+            <View style={styles.newAnimesWrapper}>
+                <Text style={styles.newAnimesTitle}>New animes!</Text>
+                <FlatList 
+                    data={newAnimes}
+                    renderItem={renderNewAnimes}
+                    keyExtractor={(item) => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
+
         </ScrollView>
     </View>
   )
@@ -51,7 +76,8 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.cyber
+        backgroundColor: colors.cyber,
+        paddingBottom: 20
     },
 
     headerWrapper: {
@@ -91,12 +117,57 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         paddingVertical: 10,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        borderRadius: 5
     },
 
     watchNewText: {
         fontSize: 16,
         marginLeft: 5,
         fontWeight: 'bold'
+    },
+
+    newAnimesWrapper: {
+        paddingHorizontal: 20,
+        marginTop: 20
+    },
+
+    newAnimesTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: colors.white,
+    },
+
+    newAnimesItemWrapper: {
+        marginTop: 25,
+        marginRight: 25
+    },
+
+    newAnimeItemImage: {
+        width: 140,
+        height: 220,
+    },
+
+    newAnimeItemImageInfo: {
+        backgroundColor: colors.gunmetal,
+        width: 140,
+        height: 70
+    },
+
+    newAnimeItemTitle: {
+        color: colors.white,
+        fontSize: 14,
+        fontWeight: 'bold',
+        paddingTop: 5,
+        paddingLeft: 5,
+        width: '80%'
+    },
+
+    newAnimeItemType: {
+        color: colors.lightGreen,
+        position: 'absolute',
+        fontWeight: '600',
+        top: 47,
+        left: 5
     }
 })
