@@ -7,14 +7,32 @@ import colors from '../colors/colors'
 import newAnime from '../images/chainsaw.jpeg'
 import newAnimeLogo from '../images/chainsawManTitle.png'
 import newAnimes from '../data/newAnimes'
+import topAnimes from '../data/topAnimes'
 
 const height = Dimensions.get("window").height
 
 const Home = ({navigation}) => {
 
+    const renderTopAnimes = ({item}) => {
+        {/* Same design as renderNewAnimes FLatList */}
+        return (
+            <TouchableOpacity style={[styles.newAnimesItemWrapper, {
+                marginRight: item.id === 'top-10' ? 0 : 25
+            }]}>
+                <Image source={item.image} style={styles.newAnimeItemImage}/>
+                <View style={styles.newAnimeItemImageInfo}>
+                    <Text style={styles.newAnimeItemTitle}>{item.title}</Text>
+                    <Text style={styles.newAnimeItemType}>{item.type}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
     const renderNewAnimes = ({item}) => {
         return (
-            <TouchableOpacity style={styles.newAnimesItemWrapper}>
+            <TouchableOpacity style={[styles.newAnimesItemWrapper, {
+                marginRight: item.id === 'new-7' ? 0 : 25
+            }]}>
                 <Image source={item.image} style={styles.newAnimeItemImage}/>
                 <View style={styles.newAnimeItemImageInfo}>
                     <Text style={styles.newAnimeItemTitle}>{item.title}</Text>
@@ -66,6 +84,17 @@ const Home = ({navigation}) => {
                 />
             </View>
 
+            <View style={styles.topTenWrapper}>
+                <Text style={styles.topTenTitle}>Top 10 most watched!</Text>
+                <FlatList 
+                    data={topAnimes}
+                    renderItem={renderTopAnimes}
+                    keyExtractor={(item) => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
+
         </ScrollView>
     </View>
   )
@@ -77,7 +106,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.cyber,
-        paddingBottom: 20
     },
 
     headerWrapper: {
@@ -133,14 +161,14 @@ const styles = StyleSheet.create({
     },
 
     newAnimesTitle: {
+        marginTop: 15,
         fontSize: 24,
         fontWeight: 'bold',
         color: colors.white,
     },
 
     newAnimesItemWrapper: {
-        marginTop: 25,
-        marginRight: 25
+        marginTop: 10,
     },
 
     newAnimeItemImage: {
@@ -169,5 +197,19 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         top: 47,
         left: 5
-    }
+    },
+
+    topTenWrapper: {
+        marginTop: 20,
+        paddingHorizontal: 20
+    },
+
+    topTenTitle: {
+        marginTop: 15,
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: colors.white,
+    },
+
+
 })

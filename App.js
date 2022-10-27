@@ -5,13 +5,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './source/views/Home'
 import Profile from './source/views/Profile';
+import { StyleSheet } from 'react-native';
+import colors from './source/colors/colors';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{
+      tabBarStyle: styles.tabBar,
+      tabBarActiveTintColor: colors.purple,
+      tabBarInactiveTintColor: colors.darkGray,
+      tabBarShowLabel: false,
+      headerShown: false
+    }}>
       <Tab.Screen name="Home" component={Home}/>
     </Tab.Navigator>
   )
@@ -21,7 +29,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+        <Stack.Screen name="TabNavigator" component={TabNavigator} options={{headerShown: false}}/>
         <Stack.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
@@ -29,3 +37,9 @@ const App = () => {
 }
 
 export default App
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: colors.black,
+  }
+})
