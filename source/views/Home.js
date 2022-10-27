@@ -8,6 +8,8 @@ import newAnime from '../images/chainsaw.jpeg'
 import newAnimeLogo from '../images/chainsawManTitle.png'
 import newAnimes from '../data/newAnimes'
 import topAnimes from '../data/topAnimes'
+import imageBanner from '../images/spyFamilyBanner.jpg'
+import miniImage from '../images/spyfamilyMini.jpg'
 
 const height = Dimensions.get("window").height
 
@@ -17,7 +19,7 @@ const Home = ({navigation}) => {
         {/* Same design as renderNewAnimes FLatList */}
         return (
             <TouchableOpacity style={[styles.newAnimesItemWrapper, {
-                marginRight: item.id === 'top-10' ? 0 : 25
+                marginRight: item.id === 'top-10' ? 0 : 10
             }]}>
                 <Image source={item.image} style={styles.newAnimeItemImage}/>
                 <View style={styles.newAnimeItemImageInfo}>
@@ -31,7 +33,7 @@ const Home = ({navigation}) => {
     const renderNewAnimes = ({item}) => {
         return (
             <TouchableOpacity style={[styles.newAnimesItemWrapper, {
-                marginRight: item.id === 'new-7' ? 0 : 25
+                marginRight: item.id === 'new-7' ? 0 : 10
             }]}>
                 <Image source={item.image} style={styles.newAnimeItemImage}/>
                 <View style={styles.newAnimeItemImageInfo}>
@@ -93,6 +95,22 @@ const Home = ({navigation}) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />
+            </View>
+
+            <View style={styles.oneAnimeWrapper}>
+                <View style={styles.oneAnimeBanner}>
+                    <Image source={imageBanner} style={styles.bannerImage}/>
+                    <View style={styles.oneImageInfoWrapper}>
+                        <Image source={miniImage} style={styles.miniImageBanner}/>
+                        <Text style={styles.oneImageTitle}>Spy X Family</Text>
+                        <Text style={styles.oneImageSinopsis}>A spy who has to "build a family" 
+                            to execute a mission, not realizing that the girl he adopts as his 
+                            daughter is a telepath, and the woman he agrees to be in a marriage 
+                            with is a skilled assassin.
+                        </Text>
+                        <Text style={styles.oneImageType}>Series</Text>
+                    </View>
+                </View>
             </View>
 
         </ScrollView>
@@ -172,19 +190,19 @@ const styles = StyleSheet.create({
     },
 
     newAnimeItemImage: {
-        width: 140,
-        height: 220,
+        width: 160,
+        height: 230,
     },
 
     newAnimeItemImageInfo: {
         backgroundColor: colors.gunmetal,
-        width: 140,
+        width: 160,
         height: 70
     },
 
     newAnimeItemTitle: {
         color: colors.white,
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: 'bold',
         paddingTop: 5,
         paddingLeft: 5,
@@ -211,5 +229,64 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
 
+    oneAnimeWrapper: {
+        paddingHorizontal: 20,
+        marginTop: 40,
+        paddingBottom: 20
+    },
 
+    bannerImage: {
+        resizeMode: 'contain',
+        width: '100%',
+        height: 210
+    },
+
+    oneImageInfoWrapper: {
+        backgroundColor: colors.gunmetal,
+        width: '100%',
+        height: 120
+    },
+
+    miniImageBanner: {
+        resizeMode: 'contain',
+        width: 105,
+        height: 240,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+        elevation: 3,
+        position: 'absolute',
+        bottom: -30,
+        left: 30
+    },
+
+    oneImageTitle: {
+        position: 'absolute',
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: colors.white,
+        left: 145,
+        top: 5
+    },
+
+    oneImageSinopsis: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: colors.white,
+        left: 145,
+        top: 25,
+        width: '55%',
+    },
+
+    oneImageType: {
+        color: colors.lightGreen,
+        position: 'absolute',
+        fontWeight: '600',
+        top: 97,
+        left: 320
+    }
 })
